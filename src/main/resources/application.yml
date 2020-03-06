@@ -1,0 +1,43 @@
+# 服务配置
+server:
+  port: 8080 # 服务端口
+  servlet:
+    jsp:
+      init-parameters:
+        development: true # 开启JSP调试模式，修改JSP无需重启
+    context-path: /ssm # 上下文路径
+
+# Spring MVC 配置
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/boot_review?characterEncoding=UTF-8&useOldAliasMetadataBehavior=true&useSSL=false
+  mvc:
+    view:
+      prefix: /WEB-INF/page # 页面前缀
+      suffix: .jsp # 页面后缀
+    spring:
+      mvc:
+        static-path-pattern=/static/**:
+    hiddenmethod: #隐藏表单过滤器开关
+      filter:
+        enabled: true
+  resources:
+    static-locations: classpath:/
+
+
+# Mybatis-Plus 配置
+mybatis-plus:
+  mapper-locations: classpath:mapper/**/*.xml # Mapper XML 扫包路径
+  type-aliases-package: com.dj.ssm.pojo # 类别名
+  configuration:
+    map-underscore-to-camel-case: true
+
+  #日志的方式打印sql
+logging:
+  level:
+    com.dj.ssm.mapper: DEBUG
+
+
