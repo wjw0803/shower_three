@@ -197,10 +197,14 @@ public class UserController {
      * 手机验证码
      */
     @RequestMapping("sendMessage")
-    public ResultModel<Object> sendMessage(String phone) {
+    public ResultModel<Object> sendMessage(User user1) {
         try {
+            User user2 =userService.findByName(user1);
+            if (user2 == null) {
+                return new ResultModel<>().error(SystemConstant.REGISTER);
+            }
             Map<String, Object> resultMap = new HashMap<String, Object>();
-            User user = userService.sendMessage(phone);
+            User user = userService.sendMessage(user1.getPhone());
             if (user == null) {
                 return new ResultModel<>().error(SystemConstant.REGISTER);
             }
