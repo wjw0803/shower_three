@@ -49,10 +49,27 @@
                     html += "</td>";
                     html += "<td>"+list.registerTime+"</td>";
                     html += list.lastloginTime != null ? "<td>"+list.lastloginTime+"</td>" : "<td>未登录记录</td>"
+                    if (list.roleNameShow == "技师"){
+                        html += "<td><a href='#' onclick='isReport("+list.isReport+")'>查看举报次数</a></td>";
+                    }else if (list.roleNameShow == "普通用户"){
+                        html += "<td><a href='#' onclick='accountMoney("+list.accountMoney+")'>查看余额</a></td>";
+                    }
                     html += "</tr>";
                 }
                 $("#tbd").html(html);
         })
+    }
+
+    function isReport(isReport){
+        layer.msg("您已被举报"+isReport+"次", {icon: 2});
+    }
+
+    function accountMoney(accountMoney){
+        layer.confirm('您的余额还有：'+accountMoney+'元，是否需要充值？', {icon: 3, title:'提示'}, function(index){
+            //do something
+
+            layer.close(index);
+        });
     }
 
 
@@ -291,6 +308,7 @@
             <th style="background: aquamarine;">状态</th>
             <th style="background: aquamarine;">注册时间</th>
             <th style="background: aquamarine;">最后登陆时间</th>
+            <th style="background: aquamarine;">操作</th>
         </tr>
         </thead>
         <tbody id = "tbd">
