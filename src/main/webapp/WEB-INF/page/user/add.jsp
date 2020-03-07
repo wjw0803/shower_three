@@ -228,6 +228,8 @@
         <input type="radio" name="sex" value="2">女
          <div id="sex" class="error" ></div>
         <input type="hidden" name="status" value="-1">
+        <input type="hidden" name="isLeave" value="1">
+        <input type="hidden" name="isReport" value="0">
         <input type="hidden" name="isDel" value="1"><br>
     <input type="submit" value="注册" />
 </form>
