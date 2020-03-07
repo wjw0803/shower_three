@@ -75,10 +75,6 @@ public class UserPageController {
      */
     @RequestMapping("toAdd")
     public String toAdd(Model model) throws Exception {
-        QueryWrapper<Role> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("is_del", SystemConstant.IS_DEL_ONE);
-        List<Role> roleList = roleService.list(queryWrapper);
-        model.addAttribute("roleList", roleList);
         //获取盐到前台进行加密
         String salt = PasswordSecurityUtil.generateSalt();
         model.addAttribute("salt", salt);

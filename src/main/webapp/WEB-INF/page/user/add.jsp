@@ -221,11 +221,8 @@
     确认密码<input type="password" name="userPwd1" /><br><br>
     手机<input type="text" name="phone" id="userPhone" /><br>
     邮箱<input type="text" name="email" id="email"/><br><br>
-    角色<br>
-    <c:forEach items="${roleList}" var="role">
-        <input type="radio" name="roleId" value="${role.id}">${role.roleName}
-    </c:forEach><br/>
-    <div id="roleId" class="error" ></div><br><br>
+    <input type="hidden" name="roleId" value="1">
+    <div id="roleId" class="error" ></div>
     性别<br>
         <input type="radio" name="sex" value="1" >男
         <input type="radio" name="sex" value="2">女
