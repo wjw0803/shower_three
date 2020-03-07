@@ -1,6 +1,48 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dj.ssm.mapper.UserMapper">
 
+    <select id="allUser" resultType="com.dj.ssm.pojo.User">
 
+        SELECT
+            u.id,
+            PASSWORD,
+            register_time,
+            phone,
+            sex,
+            nickname,
+            user_name,
+            u.is_del,
+            email,
+            lastlogin_time,
+            STATUS,
+            r.role_name AS roleNameShow
+        FROM
+            djmall_auth_user u
+        LEFT JOIN
+            djmall_auth_user_role ur
+        ON u.id = ur.user_id
+        LEFT JOIN
+        djmall_auth_role r
+        ON r.id = ur.role_id
+        <where>
+            u.is_del = 1
+            <if test="userName !=null and userName != ''">
+                AND
+                    (user_name LIKE "%"#{userName}"%" OR phone LIKE "%"#{userName}"%" OR email LIKE "%"#{userName}"%")
+            </if>
+            <if test="roleId != null">
+                AND ur.role_id = #{roleId}
+            </if>
+            <if test="sex != null">
+                AND u.sex = #{sex}
+            </if>
+            <if test="status != null and status != 0">
+                AND u.status = #{status}
+            </if>
+        </where>
+        ORDER BY
+            id
+        DESC
+    </select>
 </mapper>

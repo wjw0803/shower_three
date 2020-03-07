@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dj.ssm.mapper.ResourceMapper">
+
+
+    <select id="findResource" resultType="com.dj.ssm.pojo.Resource">
+		 SELECT
+			a.id,
+			a.resource_name,
+			a.url,
+			a.p_id,
+			a.resource_code,
+			a.resource_type,
+			a.is_del
+		FROM
+			djmall_auth_user_role ur
+		LEFT JOIN djmall_auth_role_resource arr ON ur.role_id = arr.role_id
+		LEFT JOIN djmall_auth_resource a ON arr.resource_id = a.id
+		where
+			ur.user_id = #{id}  AND arr.is_del = 1
+    </select>
+</mapper>

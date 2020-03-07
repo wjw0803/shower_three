@@ -1,0 +1,5 @@
+script type=textjavascript src=%=request.getContextPath()%resMy97DatePickerWdatePicker.jsscript
+
+
+¿ªÂôÊ±¼ä£º<input type="text" name="sellTime" value="${pro.startDateShow }" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="Wdate" style="width:200px"/>
+
