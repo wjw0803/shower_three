@@ -104,7 +104,8 @@ public class UserController {
             User user1 = (User) session.getAttribute(SystemConstant.SESSION_USER);
             //用户id查出角色id
             UserRole userRole = userRoleService.getOne(new QueryWrapper<UserRole>().eq("user_id", user1.getId()));
-            if (userRole.getRoleId().equals(1) || userRole.getRoleId().equals(8)){
+            //用户,vip用户,维修工,技师只能看到自己的信息
+            if (userRole.getRoleId().equals(1) || userRole.getRoleId().equals(8) || userRole.getRoleId().equals(7) || userRole.getRoleId().equals(3)){
                 user.setId(user1.getId());
             }
             List<User> userList = userService.findAllUser(user);
