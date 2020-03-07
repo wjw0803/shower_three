@@ -216,4 +216,9 @@ public class SystemConstant {
 	 */
 	public static final String PAST_DUE  = "验证码已过期,请重新获取";
 
+	/**
+	 * 您已被辞职不能登录
+	 */
+	public static final String RESIGN  = "您已被辞职不能登录";
+
 }

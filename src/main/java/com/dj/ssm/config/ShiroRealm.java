@@ -78,6 +78,10 @@ public class ShiroRealm extends AuthorizingRealm {
             if (!user1.getStatus().equals(SystemConstant.ONE)) {
                 throw new UnauthenticatedException(SystemConstant.ACTIVATE);
             }
+            //技师被辞职不能登录
+            if(!user1.getIsLeave().equals(SystemConstant.ONE)){
+                throw new UnauthenticatedException(SystemConstant.RESIGN);
+            }
             //用户是否删除
             if (user1.getIsDel().equals(SystemConstant.IS_DEL_ZERO)) {
                 throw new UnauthenticatedException(SystemConstant.DELETE);
