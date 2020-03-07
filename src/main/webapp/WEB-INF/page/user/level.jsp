@@ -185,7 +185,7 @@
                                     layer.msg(data.msg, {icon: 5});
                                     return;
                                 }
-                                parent.window.location.href = "<%=request.getContextPath()%>/user/toLogin";
+                                parent.window.location.href = "<%=request.getContextPath()%>/user/toShow";
                             });
                     });
                     layer.msg("成功", {icon: 6});

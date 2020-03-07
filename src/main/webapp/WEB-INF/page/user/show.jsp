@@ -223,9 +223,26 @@
         layer.close(index);
     }
 
+    //新增
+    function toAddUser(){
+        layer.open({
+            type: 2,
+            title: [
+                '新增',
+                'background-color:#8DCE16; color:#fff;'
+            ],
+            shadeClose: true,
+            shade: 0.3,
+            area: ['380px', '80%'],
+            content: '<%=request.getContextPath()%>/user/toLevel' //iframe的url
+        });
+    }
+
 </script>
 <body>
+
 <shiro:hasPermission name="user:show">
+    <a onclick="toAddUser()" style="color: #00FFFF">员工信息注册</a><br/>
 <form id="fm">
     用户名/手机号/邮箱<input name="userName" type="text"><br>
     角色:

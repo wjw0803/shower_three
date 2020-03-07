@@ -66,8 +66,7 @@ public class ShiroConfiguration {
         filters.put("/user/toFind", "anon"); // anon 表示不需要认证
         filters.put("/user/sendMessage", "anon"); // anon 表示不需要认证
         filters.put("/user/findSalt", "anon"); // anon 表示不需要认证
-//        filters.put("/user/toLevel", "anon"); // anon 表示不需要认证
-//        filters.put("/user/level", "anon"); // anon 表示不需要认证
+
 
 
         filters.put("/**", "authc"); // authc 表示必须认证才可访问
