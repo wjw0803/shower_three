@@ -96,4 +96,34 @@ public class User {
      * 密码 "盐"
      */
     private String salt;
+
+    // ================================新增字段 =======================//
+
+    /**
+     * 辞职状态:0:辞职1:在岗
+     */
+    private Integer isLeave;
+
+    /**
+     * 是否举报,默认为0,举报1次加1次
+     */
+    private  Integer isReport;
+
+    /**
+     * 账户余额
+     */
+    private  Double account_money;
+
+    /**
+     * 是否已领取新人福利 0:未领取1:已领取
+     */
+    private Integer isGetMoney;
+
+    /**
+     * vip失效时间
+     */
+    private Date validateCodeTime;
+
+
+
 }
