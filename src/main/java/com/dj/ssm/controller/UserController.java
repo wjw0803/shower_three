@@ -1,6 +1,7 @@
 package com.dj.ssm.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dj.ssm.common.ResultModel;
 import com.dj.ssm.common.SystemConstant;
 import com.dj.ssm.pojo.User;
@@ -101,7 +102,11 @@ public class UserController {
     public ResultModel<Object> show(User user, HttpSession session) {
         try {
             User user1 = (User) session.getAttribute(SystemConstant.SESSION_USER);
-
+            //用户id查出角色id
+            UserRole userRole = userRoleService.getOne(new QueryWrapper<UserRole>().eq("user_id", user1.getId()));
+            if (userRole.getRoleId().equals(1) || userRole.getRoleId().equals(8)){
+                user.setId(user1.getId());
+            }
             List<User> userList = userService.findAllUser(user);
             return new ResultModel<>().success(userList);
         } catch (Exception e) {

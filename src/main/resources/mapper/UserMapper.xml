@@ -40,6 +40,10 @@
             <if test="status != null and status != 0">
                 AND u.status = #{status}
             </if>
+            <if test="id != null">
+                AND u.id = #{id}
+            </if>
+
         </where>
         ORDER BY
             id

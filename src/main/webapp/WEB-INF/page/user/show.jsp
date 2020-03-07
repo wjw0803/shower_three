@@ -225,6 +225,7 @@
 
 </script>
 <body>
+<shiro:hasPermission name="user:show">
 <form id="fm">
     用户名/手机号/邮箱<input name="userName" type="text"><br>
     角色:
@@ -240,6 +241,7 @@
         </select><br>
     <input type="button" value="搜索" onclick="show()">
 </form>
+</shiro:hasPermission>
 <shiro:hasPermission name="user:update">
     <input type="button" value="修改" onclick="updateById()">&nbsp;
 </shiro:hasPermission>
