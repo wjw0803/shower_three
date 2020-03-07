@@ -98,8 +98,10 @@ public class UserController {
      * 展示
      */
     @RequestMapping("show")
-    public ResultModel<Object> show(User user) {
+    public ResultModel<Object> show(User user, HttpSession session) {
         try {
+            User user1 = (User) session.getAttribute(SystemConstant.SESSION_USER);
+
             List<User> userList = userService.findAllUser(user);
             return new ResultModel<>().success(userList);
         } catch (Exception e) {

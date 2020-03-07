@@ -55,6 +55,7 @@ public class ShiroConfiguration {
         // 设置未授权界面，权限认证失败会访问该 URL
         shiroFilterFactoryBean.setUnauthorizedUrl("/403.jsp");
         Map<String, String> filters = new HashMap<>();
+        filters.put("/static/**", "anon"); // anon 表示不需要认证
         filters.put("/user/toLogin", "anon"); // anon 表示不需要认证
         filters.put("/user/login", "anon"); // anon 表示不需要认证
         filters.put("/user/toAdd", "anon"); // anon 表示不需要认证
@@ -65,7 +66,9 @@ public class ShiroConfiguration {
         filters.put("/user/toFind", "anon"); // anon 表示不需要认证
         filters.put("/user/sendMessage", "anon"); // anon 表示不需要认证
         filters.put("/user/findSalt", "anon"); // anon 表示不需要认证
-        filters.put("/static/**", "anon"); // anon 表示不需要认证
+//        filters.put("/user/toLevel", "anon"); // anon 表示不需要认证
+//        filters.put("/user/level", "anon"); // anon 表示不需要认证
+
 
         filters.put("/**", "authc"); // authc 表示必须认证才可访问
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filters);

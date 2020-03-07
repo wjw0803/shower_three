@@ -20,8 +20,9 @@
         <input type="text" name="userName" placeholder="用户名" onblur="getSalt(this)"><br/>
         <input type = "password" name = "password" id="pwd" placeholder="密码"><br/>
 
-        <a onclick="toAdd()" style="color: #00FFFF">还没有账号?点我注册!</a>&nbsp;&nbsp;&nbsp;&nbsp;
+        <a onclick="toAdd()" style="color: #00FFFF">还没有账号?点我注册!</a>&nbsp;&nbsp;&nbsp;&nbsp;<br/>
         <a onclick="toFind()" style="color: #00FFFF">忘记密码?</a><br/>
+        <a onclick="toAddUser()" style="color: #00FFFF">员工信息注册</a><br/>
 
         <input type ="button" value="登陆" onclick="login()">
     </form>
@@ -57,6 +58,21 @@
     }
 
     //新增
+    function toAddUser(){
+        layer.open({
+            type: 2,
+            title: [
+                '新增',
+                'background-color:#8DCE16; color:#fff;'
+            ],
+            shadeClose: true,
+            shade: 0.3,
+            area: ['380px', '80%'],
+            content: '<%=request.getContextPath()%>/user/toLevel' //iframe的url
+        });
+    }
+
+    //新增
     function toAdd(){
         layer.open({
             type: 2,
@@ -70,7 +86,6 @@
             content: '<%=request.getContextPath()%>/user/toAdd' //iframe的url
         });
     }
-
     //新增
     function toFind(){
         layer.open({

@@ -80,6 +80,16 @@ public class UserPageController {
         model.addAttribute("salt", salt);
         return "user/add";
     }
+    /**
+     *  去注册
+     */
+    @RequestMapping("toLevel")
+    public String toLevel(Model model) throws Exception {
+        //获取盐到前台进行加密
+        String salt = PasswordSecurityUtil.generateSalt();
+        model.addAttribute("salt", salt);
+        return "user/level";
+    }
 
     /**
      * 去修改
