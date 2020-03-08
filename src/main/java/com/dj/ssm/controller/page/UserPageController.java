@@ -32,6 +32,16 @@ public class UserPageController {
     private UserRoleService userRoleService;
 
     /**
+     * 去充值余额
+     */
+    @RequestMapping("toAccountMoney/{accountMoney}")
+    public String toAccountMoney(@PathVariable Double accountMoney, Model model){
+        model.addAttribute("accountMoney", accountMoney);
+        return "user/accountMoney";
+    }
+
+
+    /**
      * 去登录
      */
     @RequestMapping("toLogin")

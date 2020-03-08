@@ -16,6 +16,8 @@
             email,
             lastlogin_time,
             STATUS,
+            is_report,
+            account_money,
             r.role_name AS roleNameShow
         FROM
             djmall_auth_user u

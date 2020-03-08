@@ -20,9 +20,23 @@
     </properties>
 
     <dependencies>
-<!--
-        shrio
--->
+
+        <!--分页-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.2.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>2.1.1</version>
+        </dependency>
+
+
+        <!--
+                shrio
+        -->
               <dependency>
                   <groupId>org.apache.shiro</groupId>
                   <artifactId>shiro-spring-boot-starter</artifactId>

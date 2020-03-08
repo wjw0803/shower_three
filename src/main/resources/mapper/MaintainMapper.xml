@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dj.ssm.mapper.MaintainMapper">
+
+	<select id="findAllMaintain" resultType="com.dj.ssm.pojo.Maintain">
+
+		SELECT
+		m.id,
+		m.maintain_time,
+		m.maintain_id,
+		m.maintain_project,
+		m.`status`,
+		m.is_del,
+		b.base_name AS projectShow,
+		bd.base_name AS statusShow
+		FROM
+		maintain m
+		LEFT JOIN basic_data b ON m.maintain_project = b.id
+		LEFT JOIN basic_data bd ON m.`status` = bd.id
+		WHERE m.is_del = 1
+		<if test="status != null and status != 0">
+			and status = #{status}
+		</if>
+		ORDER BY m.id DESC
+
+
+
+	</select>
+</mapper>

@@ -74,7 +74,7 @@ public class SystemConstant {
 	/**
 	 * 展示报销单号dj
 	 */
-	public static final String NUM_DJ = "DJ";
+	public static final String NUM_DJ = "OVO";
 
 	/**
 	 * 查询pid 为12的收支项目
@@ -221,4 +221,8 @@ public class SystemConstant {
 	 */
 	public static final String RESIGN  = "您已被辞职不能登录";
 
+	/**
+	 * 用户充值余额
+	 */
+    public static final String ACCOUNTMONEY = "充值成功";
 }

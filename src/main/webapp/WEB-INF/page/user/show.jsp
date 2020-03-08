@@ -49,10 +49,37 @@
                     html += "</td>";
                     html += "<td>"+list.registerTime+"</td>";
                     html += list.lastloginTime != null ? "<td>"+list.lastloginTime+"</td>" : "<td>未登录记录</td>"
+                    if (list.roleNameShow == "技师"){
+                        html += "<td><a href='#' onclick='isReport("+list.isReport+")'>查看举报次数</a></td>";
+                    } else if (list.roleNameShow == "普通用户"){
+                        html += "<td><a href='#' onclick='accountMoney("+list.accountMoney+")'>查看余额</a></td>";
+                    } else {
+                        html += "<td>--------</td>";
+                    }
                     html += "</tr>";
                 }
                 $("#tbd").html(html);
         })
+    }
+
+    //查看举报次数
+    function isReport(isReport){
+        layer.msg("您已被举报"+isReport+"次", {icon: 2});
+    }
+
+    //查看余额
+    function accountMoney(accountMoney){
+        layer.confirm('您的余额还有：'+accountMoney+'元，是否需要充值？', {icon: 3, title:'查看余额'}, function(index){
+            layer.close(index);
+            layer.open({
+                type: 2,
+                title: '充值页面',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['380px', '90%'],
+                content: '<%=request.getContextPath()%>/user/toAccountMoney/'+accountMoney
+            });
+        });
     }
 
 
@@ -244,39 +271,57 @@
 
 </script>
 <body>
-
 <shiro:hasPermission name="user:show">
-    <a onclick="toAddUser()" style="color: #00FFFF">员工信息注册</a><br/>
-<form id="fm">
-    用户名/手机号/邮箱<input name="userName" type="text"><br>
-    角色:
-    <input type="radio" name="roleId" value="1" >用户
-    <input type="radio" name="roleId" value="2">管理员<br />
-    性别:
-    <input type="radio" name="sex" value="1">男
-    <input type="radio" name="sex" value="2">女<br />
-    状态<select name="status">
-            <option value="0">--请选择--</option>
-            <option value="1">激活</option>
-            <option value="-1">未激活</option>
-        </select><br>
-    <input type="button" value="搜索" onclick="show()">
+    <button type="button" class="layui-btn layui-btn-fluid" onclick="toAddUser()">员工信息注册</button><br>
+<form id="fm" class="layui-form">
+    <div class="layui-form-item">
+        <label class="layui-form-label"> 用户名/手机号/邮箱</label>
+        <div class="layui-input-block">
+            <input type="text" name="userName" lay-verify="title" autocomplete="off" placeholder="模糊查字段" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">角色</label>
+        <div class="layui-input-block">
+            <input type="radio" name="roleId" value="1" title="用户" >
+            <input type="radio" name="roleId" value="2" title="管理员">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">性别</label>
+        <div class="layui-input-block">
+            <input type="radio" name="sex" value="1" title="男" >
+            <input type="radio" name="sex" value="2" title="女">
+        </div>
+    </div>
+   <div class="layui-inline">
+       <label class="layui-form-label">状态</label>
+       <div class="layui-input-inline">
+           <select name="status" lay-verify="required" lay-search="">
+               <option value="0">--请选择--</option>
+               <option value="1">激活</option>
+               <option value="-1">未激活</option>
+           </select>
+       </div>
+   </div><br>
+   <button type="button" class="layui-btn layui-btn-normal layui-btn-radius" onclick="show()">搜索</button>
+
 </form>
 </shiro:hasPermission>
 <shiro:hasPermission name="user:update">
-    <input type="button" value="修改" onclick="updateById()">&nbsp;
+    <button type="button" class="layui-btn" onclick="updateById()"><i class="layui-icon"></i></button>
 </shiro:hasPermission>
 <shiro:hasPermission name="user:updateStatus">
-    <input type="button" value="激活" onclick="updateStatusById()">&nbsp;
+    <button type="button" class="layui-btn layui-btn-normal" onclick="updateStatusById()">激活</button>
 </shiro:hasPermission>
 <shiro:hasPermission name="user:del">
-    <input type="button" value="删除" onclick = 'delByIds()'>&nbsp;
+    <button type="button" class="layui-btn layui-btn-danger" onclick="delByIds()"><i class="layui-icon"></i></button>
 </shiro:hasPermission>
 <shiro:hasPermission name="user:confer">
-    <input type="button" value="授权" onclick = "confer()">
+    <button type="button" class="layui-btn layui-btn-normal layui-btn-radius" onclick="confer()">授权</button>
 </shiro:hasPermission>
 
-<input type="button" value="充值vip" onclick="toChong()">
+<button type="button" class="layui-btn layui-btn-warm layui-btn-radius" onclick="toChong()">充值vip</button>
 
     <table  class="layui-table">
         <colgroup>
@@ -298,10 +343,18 @@
             <th style="background: aquamarine;">状态</th>
             <th style="background: aquamarine;">注册时间</th>
             <th style="background: aquamarine;">最后登陆时间</th>
+            <th style="background: aquamarine;">操作</th>
         </tr>
         </thead>
         <tbody id = "tbd">
         </tbody>
     </table>
+<script>
+    layui.use('form', function(){
+        var form = layui.form;
+
+        //各种基于事件的操作，下面会有进一步介绍
+    });
+</script>
 </body>
 </html>
