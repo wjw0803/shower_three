@@ -146,4 +146,11 @@ public class UserPageController {
         return "/user/buy_vip";
     }
 
+    /**
+     *  去展示技师
+     */
+    @RequestMapping("toExpertShow")
+    public String toExpertShow() {
+        return "/user/expert_show";
+    }
 }

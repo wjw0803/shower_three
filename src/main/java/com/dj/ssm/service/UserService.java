@@ -40,4 +40,7 @@ public interface UserService extends IService<User> {
 
     //找回密码
     void findPhoneAndVerify(User user) throws Exception;
+
+    //展示技师
+    List<User> findByRoleAllUser(User user) throws Exception;
 }

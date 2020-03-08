@@ -51,4 +51,36 @@
             id
         DESC
     </select>
+
+    <select id="findByRoleAllUser" resultType="com.dj.ssm.pojo.User">
+        SELECT
+        u.id,
+        PASSWORD,
+        register_time,
+        phone,
+        sex,
+        nickname,
+        user_name,
+        u.is_del,
+        email,
+        lastlogin_time,
+        STATUS,
+        r.role_name AS roleNameShow,
+        u.is_report,
+        u.prevoir
+        FROM
+        djmall_auth_user u
+        LEFT JOIN
+        djmall_auth_user_role ur
+        ON u.id = ur.user_id
+        LEFT JOIN
+        djmall_auth_role r
+        ON r.id = ur.role_id
+        <where>
+            u.is_del = 1
+            AND ur.role_id = #{roleId}
+            ANd u.is_report BETWEEN 0 and 3
+            and u.prevoir = 0
+        </where>
+    </select>
 </mapper>

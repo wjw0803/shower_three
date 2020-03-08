@@ -28,8 +28,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Autowired
     private UserRoleService userRoleService;
 
-
-
     @Override
     public List<User> findAllUser(User user) throws Exception {
         return userMapper.allUser(user);
@@ -144,5 +142,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user1 = this.getOne(queryWrapper);
         DateFormat df = DateFormat.getDateTimeInstance();//可以精确到时分秒
         JavaEmailUtils.sendEmail(user1.getEmail(), "修改密码", "您的账户"+user1.getNickname()+"，于"+df.format(new Date())+"时进行密码修改成功。");
+    }
+
+    @Override
+    public List<User> findByRoleAllUser(User user) throws Exception {
+        return userMapper.findByRoleAllUser(user);
     }
 }

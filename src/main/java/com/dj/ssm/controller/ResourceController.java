@@ -1,12 +1,16 @@
 package com.dj.ssm.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dj.ssm.common.ResultModel;
 import com.dj.ssm.common.SystemConstant;
 import com.dj.ssm.pojo.Resource;
+import com.dj.ssm.pojo.User;
 import com.dj.ssm.service.ResourceService;
 import com.dj.ssm.service.UserRoleService;
+import com.dj.ssm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,6 +27,9 @@ public class ResourceController {
 
     @Autowired
     private UserRoleService userRoleService;
+
+    @Autowired
+    private UserService userService;
 
     /**
      * left展示
@@ -117,5 +124,20 @@ public class ResourceController {
         }
     }
 
+    @PutMapping("updateIsReport")
+    public ResultModel<Object> updateIsReport(User user) {
+        QueryWrapper<User> wrapper = new QueryWrapper<User>();
+        wrapper.eq("id", user.getId());
+        User user1 = userService.getOne(wrapper);
+        user.setIsReport(user1.getIsReport()+1);
+        userService.updateById(user);
+        return new ResultModel<>().success();
+    }
 
+    @PutMapping("updatePrevoir")
+    public ResultModel<Object> updatePrevoir(User user) {
+        QueryWrapper<User> wrapper = new QueryWrapper<User>();
+        userService.updateById(user);
+        return new ResultModel<>().success();
+    }
 }
