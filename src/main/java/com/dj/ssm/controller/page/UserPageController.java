@@ -138,5 +138,12 @@ public class UserPageController {
         return "user/login";
     }
 
+    /**
+     * 去充值vip
+     */
+    @RequestMapping("toChong")
+    public String toChong(){
+        return "/user/buy_vip";
+    }
 
 }

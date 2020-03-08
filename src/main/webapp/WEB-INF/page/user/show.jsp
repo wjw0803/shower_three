@@ -265,39 +265,64 @@
         });
     }
 
+    function toChong() {
+        window.location.href = "<%=request.getContextPath()%>/user/toChong" //iframe的url
+    }
+
 </script>
 <body>
-
 <shiro:hasPermission name="user:show">
-    <a onclick="toAddUser()" style="color: #00FFFF">员工信息注册</a><br/>
-<form id="fm">
-    用户名/手机号/邮箱<input name="userName" type="text"><br>
-    角色:
-    <input type="radio" name="roleId" value="1" >用户
-    <input type="radio" name="roleId" value="2">管理员<br />
-    性别:
-    <input type="radio" name="sex" value="1">男
-    <input type="radio" name="sex" value="2">女<br />
-    状态<select name="status">
-            <option value="0">--请选择--</option>
-            <option value="1">激活</option>
-            <option value="-1">未激活</option>
-        </select><br>
-    <input type="button" value="搜索" onclick="show()">
+    <button type="button" class="layui-btn layui-btn-fluid" onclick="toAddUser()">员工信息注册</button><br>
+<form id="fm" class="layui-form">
+    <div class="layui-form-item">
+        <label class="layui-form-label"> 用户名/手机号/邮箱</label>
+        <div class="layui-input-block">
+            <input type="text" name="userName" lay-verify="title" autocomplete="off" placeholder="模糊查字段" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">角色</label>
+        <div class="layui-input-block">
+            <input type="radio" name="roleId" value="1" title="用户" >
+            <input type="radio" name="roleId" value="2" title="管理员">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">性别</label>
+        <div class="layui-input-block">
+            <input type="radio" name="sex" value="1" title="男" >
+            <input type="radio" name="sex" value="2" title="女">
+        </div>
+    </div>
+   <div class="layui-inline">
+       <label class="layui-form-label">状态</label>
+       <div class="layui-input-inline">
+           <select name="status" lay-verify="required" lay-search="">
+               <option value="0">--请选择--</option>
+               <option value="1">激活</option>
+               <option value="-1">未激活</option>
+           </select>
+       </div>
+   </div><br>
+   <button type="button" class="layui-btn layui-btn-normal layui-btn-radius" onclick="show()">搜索</button>
+
 </form>
 </shiro:hasPermission>
 <shiro:hasPermission name="user:update">
-    <input type="button" value="修改" onclick="updateById()">&nbsp;
+    <button type="button" class="layui-btn" onclick="updateById()"><i class="layui-icon"></i></button>
 </shiro:hasPermission>
 <shiro:hasPermission name="user:updateStatus">
-    <input type="button" value="激活" onclick="updateStatusById()">&nbsp;
+    <button type="button" class="layui-btn layui-btn-normal" onclick="updateStatusById()">激活</button>
 </shiro:hasPermission>
 <shiro:hasPermission name="user:del">
-    <input type="button" value="删除" onclick = 'delByIds()'>&nbsp;
+    <button type="button" class="layui-btn layui-btn-danger" onclick="delByIds()"><i class="layui-icon"></i></button>
 </shiro:hasPermission>
 <shiro:hasPermission name="user:confer">
-    <input type="button" value="授权" onclick = "confer()">
+    <button type="button" class="layui-btn layui-btn-normal layui-btn-radius" onclick="confer()">授权</button>
 </shiro:hasPermission>
+
+<button type="button" class="layui-btn layui-btn-warm layui-btn-radius" onclick="toChong()">充值vip</button>
+
     <table  class="layui-table">
         <colgroup>
             <col width="100">
@@ -324,5 +349,12 @@
         <tbody id = "tbd">
         </tbody>
     </table>
+<script>
+    layui.use('form', function(){
+        var form = layui.form;
+
+        //各种基于事件的操作，下面会有进一步介绍
+    });
+</script>
 </body>
 </html>

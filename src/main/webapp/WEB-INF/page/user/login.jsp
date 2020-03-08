@@ -13,21 +13,24 @@
 <head>
     <title>登陆</title>
 </head>
-<body>
-
+<body >
+<div align="center">
+<div style="border: #0C0C0C 1px solid ; width: 167px; height: 124px" align="left" >
     <form id = "fm">
         <input type="hidden" name="salt"  id="salt"/>
         <input type="text" name="userName" placeholder="用户名" onblur="getSalt(this)"><br/>
         <input type = "password" name = "password" id="pwd" placeholder="密码"><br/>
 
-        <a onclick="toAdd()" style="color: #00FFFF">还没有账号?点我注册!</a>&nbsp;&nbsp;&nbsp;&nbsp;<br/>
+        <a onclick="toAdd()" style="color: #00FFFF">没有账号?点我注册!</a>&nbsp;&nbsp;&nbsp;&nbsp;<br/>
         <a onclick="toFind()" style="color: #00FFFF">忘记密码?</a><br/>
 
 
         <input type ="button" value="登陆" onclick="login()">
     </form>
-
+</div>
+</div>
 </body>
+
 <script>
     //登录
 
