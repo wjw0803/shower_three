@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
@@ -112,7 +113,7 @@ public class User {
     /**
      * 账户余额
      */
-    private  Double accountMoney;
+    private Double accountMoney;
 
     /**
      * 是否已领取新人福利 0:未领取1:已领取

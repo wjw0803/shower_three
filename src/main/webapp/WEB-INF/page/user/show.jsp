@@ -51,8 +51,10 @@
                     html += list.lastloginTime != null ? "<td>"+list.lastloginTime+"</td>" : "<td>未登录记录</td>"
                     if (list.roleNameShow == "技师"){
                         html += "<td><a href='#' onclick='isReport("+list.isReport+")'>查看举报次数</a></td>";
-                    }else if (list.roleNameShow == "普通用户"){
+                    } else if (list.roleNameShow == "普通用户"){
                         html += "<td><a href='#' onclick='accountMoney("+list.accountMoney+")'>查看余额</a></td>";
+                    } else {
+                        html += "<td>--------</td>";
                     }
                     html += "</tr>";
                 }
@@ -60,15 +62,23 @@
         })
     }
 
+    //查看举报次数
     function isReport(isReport){
         layer.msg("您已被举报"+isReport+"次", {icon: 2});
     }
 
+    //查看余额
     function accountMoney(accountMoney){
-        layer.confirm('您的余额还有：'+accountMoney+'元，是否需要充值？', {icon: 3, title:'提示'}, function(index){
-            //do something
-
+        layer.confirm('您的余额还有：'+accountMoney+'元，是否需要充值？', {icon: 3, title:'查看余额'}, function(index){
             layer.close(index);
+            layer.open({
+                type: 2,
+                title: '充值页面',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['380px', '90%'],
+                content: '<%=request.getContextPath()%>/user/toAccountMoney/'+accountMoney
+            });
         });
     }
 
