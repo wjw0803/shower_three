@@ -5,7 +5,7 @@
 	<sql id="PRODUCTCOLUMN">
 		id,
 		p_name,
-		p_type,
+		message,
 		price,
 		status,
 		user_id,
@@ -14,11 +14,11 @@
 		is_del
 	</sql>
 
-	<select id="findAll"  resultType="Product">
+	<select id="findAll"  resultType="com.dj.ssm.pojo.Product">
 		SELECT
 			p.id,
 			p.p_name,
-			p.p_type,
+			p.message,
 			p.price,
 			p.`status`,
 			p.user_id,
@@ -26,9 +26,9 @@
 			p.update_time,
 			u.user_name as userName 
 		FROM
-			dj_product p
+			djmall_auth_product p
 
-		LEFT JOIN dj_user u ON p.user_id = u.id
+		LEFT JOIN djmall_auth_user u ON p.user_id = u.id
 		where 
 		p.is_del = #{isDel}
 		<if test="pName != null and pName != '' ">
@@ -37,9 +37,9 @@
 	</select>
 	
 	<insert id="add">
-		INSERT INTO dj_product (
+		INSERT INTO djmall_auth_product (
 			p_name,
-			p_type,
+			message,
 			price,
 			STATUS,
 			user_id,
@@ -48,34 +48,34 @@
 			is_del
 		)
 		VALUES
-			(#{pName},#{pType},#{price},#{status},#{userId},#{creatTime},#{updateTime},#{isDel})
+			(#{pName},#{message},#{price},#{status},#{userId},now(),now(),#{isDel})
 				
 	</insert>
 	
 	<update id="del">
-		update dj_product set is_del = #{isDel} where id in
+		update djmall_auth_product set is_del = #{isDel} where id in
 		<foreach collection="ids" close=")" open="(" separator="," item="id">
 		#{id}
 		</foreach>
 	</update>
 	
-	<select id="findProductById" resultType="Product">
+	<select id="findProductById" resultType="com.dj.ssm.pojo.Product">
 		SELECT
 			<include refid="PRODUCTCOLUMN" />
 		FROM
-			dj_product
+			djmall_auth_product
 		WHERE
 			id = #{id}
 	</select>
 	
 	<update id="update">
-		update dj_product 
+		update djmall_auth_product
 		<set>
 			<if test="pName != null and pName != '' ">
 			p_name = #{pName},
 			</if>
-			<if test="pType != null ">
-			p_type = #{pType},
+			<if test="message != null and message != '' ">
+			message = #{message},
 			</if>
 			<if test="price != null  ">
 			price = #{price},
@@ -84,21 +84,18 @@
 			status = #{status},
 			</if>
 			<if test="creatTime != null  ">
-				update_time = #{creatTime},
+				creat_time = #{creatTime},
 			</if>
-			<if test="updateTime != null  ">
-				update_time = #{updateTime},
-			</if>
-
+				update_time = now()
 		</set>
 		where id = #{id}
 	</update>
 
-	<select id="findByName" resultType="Product">
+	<select id="findByName" resultType="com.dj.ssm.pojo.Product">
 		SELECT
 			<include refid="PRODUCTCOLUMN" />
 		FROM
-			dj_product
+			djmall_auth_product
 		WHERE
 			p_name = #{pName}
 	</select>

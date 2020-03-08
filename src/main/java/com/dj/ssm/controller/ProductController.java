@@ -4,6 +4,7 @@ import com.dj.ssm.common.ResultModel;
 import com.dj.ssm.pojo.Product;
 import com.dj.ssm.pojo.User;
 import com.dj.ssm.service.ProductService;
+import com.dj.ssm.service.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,8 +26,13 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
-    /*@Autowired
-    private MessageService messageService;*/
+    @Autowired
+    private UserService userService;
+    /**
+     *  @Autowired
+     *  private MessageService messageService;
+     */
+
 
     /**
      * 商品展示
@@ -33,7 +41,7 @@ public class ProductController {
     public ResultModel<Object> show(Product product, Integer pageNum) {
         Map<String, Object> resultMap = new HashMap<String, Object>();
         try {
-            PageHelper.startPage(pageNum, 6);
+            PageHelper.startPage(pageNum, 4);
             List<Product> list = productService.findAll(product);
             PageInfo<Product> pageInfo = new PageInfo<Product>(list);
             resultMap.put("code", 200);
@@ -149,8 +157,14 @@ public class ProductController {
     }
 
     @RequestMapping("purchase")
-    public ResultModel<Object> purchase(Integer id, @SessionAttribute("user") User user) {
+    public ResultModel<Object> purchase(Product product, Integer id, Double price, @SessionAttribute("user") User user) {
         try {
+            BigDecimal AccountMoney = new BigDecimal( user.getAccountMoney());
+            BigDecimal price1 = new BigDecimal(price);
+            System.out.println(Double.valueOf(String.valueOf(AccountMoney.subtract(price1))));
+            user.setAccountMoney(Double.valueOf(String.valueOf(AccountMoney.subtract(price1))));
+            userService.updateUser(user);
+
 /*
             Message message = new Message();
             message.setProductId(id).setCreateUserId(user.getId());

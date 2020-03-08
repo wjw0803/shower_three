@@ -17,7 +17,7 @@
 <head>
     <title>商品展示</title>
 </head>
-<script type="text/javascript">
+<script>
 
     $(function(){
         search();
@@ -31,9 +31,7 @@
                 for (var i = 0; i < data.data.data.length; i++) {
                     var p = data.data.data[i];
                     html += "<tr>"
-                    if (${user.level == 2} ){
-                        html += "<td><input type='checkbox' name='ids' value='"+p.id+"' /></td>"
-                    }
+                    html += "<td><input type='checkbox' name='ids' value='"+p.id+"' /></td>"
                     html += "<td>"+p.id+"</td>"
                     html += "<td>"+p.pName+"</td>"
                     html += "<td>"+p.message+"</td>"
@@ -41,9 +39,12 @@
                     html += p.status == 1 ? "<td>上架</td>":"<td>下架</td>"
                     html += "<td>"+p.creatTimeShow+"</td>"
                     html += "<td>"+p.updateTimeShow+"</td>"
-                    if (${user.level != 2} && p.status == 1){
-                        html += "<td><button type='button' 	class='layui-btn layui-btn-xs layui-btn-radius'  onclick = 'purchase("+p.id+")'><i class='layui-icon'>购买</i></button></td>";
-                    }
+                    <shiro:hasPermission name="product:purchase">
+                        if (p.status == 1){
+                            html += "<td><button type='button' 	class='layui-btn layui-btn-xs layui-btn-radius'  onclick = 'purchase("+p.id+","+p.price+")'><i class='layui-icon'>购买</i></button></td>";
+                        }
+                    </shiro:hasPermission>
+
                     html += "<input type = 'hidden' id = '"+p.id+"' value = '"+p.status+"'>";
                     html += "</tr>"
                 }
@@ -57,10 +58,10 @@
     }
 
     //购买
-    function purchase(id) {
+    function purchase(id, price) {
         var index = layer.load(0, {shade: 0.3}); //0代表加载的风格，支持0-2
         $.post("<%=request.getContextPath()%>/product/purchase",
-            {"id":id},
+            {"id":id, "price":price},
             function(data){
                 layer.close(index);
                 if (data.code == "500") {
@@ -89,7 +90,7 @@
         //iframe层
         layer.open({
             type: 2,
-            title: '增加航班信息',
+            title: '增加商品信息',
             shadeClose: true,
             shade: 0.3,
             area: ['380px', '90%'],
@@ -124,7 +125,7 @@
         });
         layer.open({
             type: 2,
-            title: '更改航班信息',
+            title: '更改商品信息',
             shadeClose: true,
             shade: 0.3,
             area: ['380px', '90%'],
@@ -157,10 +158,10 @@
 
         var status = "";
         if(sta == 1){
-            msg += "晚点？";
+            msg += "下架？";
             status = 0;
         } else {
-            msg += "正点？"
+            msg += "上架？"
             status = 1;
         }
         //弹窗
@@ -235,7 +236,7 @@
     <input type = "hidden" value = "1" id ="pageNum" name ="pageNum" />
     <input type = "hidden" value = "1" id ="isDel" name ="isDel" />
     <input type="text" name="pName" id = "pName" />
-    <button type='button' 	class='layui-btn layui-btn-xs layui-btn-radius'  onclick="findName()"><i class='layui-icon'>按航班号查询</i></button>
+    <button type='button' 	class='layui-btn layui-btn-xs layui-btn-radius'  onclick="findName()"><i class='layui-icon'>按商品名查询</i></button>
 </form>
 <shiro:hasPermission name="product:insert">
     <input type="button" value="新增" onclick = 'insert()'>&nbsp;
@@ -259,9 +260,7 @@
     </colgroup>
     <thead>
     <tr>
-        <c:if test="${user.level == 2}">
-            <th style="background: aqua;width: 10px"></th>
-        </c:if>
+        <th style="background: aqua;"></th>
         <th style="background: aqua;">编号</th>
         <th style="background: aqua;">商品名</th>
         <th style="background: aqua;">商品说明</th>
@@ -269,9 +268,9 @@
         <th style="background: aqua;">上架/下架</th>
         <th style="background: aqua;">创建时间</th>
         <th style="background: aqua;">更新时间</th>
-        <c:if test="${user.level != 2}">
-            <th style="background: aqua;" colspan="2">操作</th>
-        </c:if>
+        <shiro:hasPermission name="product:purchase">
+            <th style="background: aquamarine;">操作</th>
+        </shiro:hasPermission>
     </tr>
     </thead>
     <tbody id = "tbd">
