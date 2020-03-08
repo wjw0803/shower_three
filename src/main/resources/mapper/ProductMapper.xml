@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dj.ssm.mapper.ProductMapper">
+
+	<sql id="PRODUCTCOLUMN">
+		id,
+		p_name,
+		p_type,
+		price,
+		status,
+		user_id,
+		creat_time,
+		update_time,
+		is_del
+	</sql>
+
+	<select id="findAll"  resultType="Product">
+		SELECT
+			p.id,
+			p.p_name,
+			p.p_type,
+			p.price,
+			p.`status`,
+			p.user_id,
+			p.creat_time,
+			p.update_time,
+			u.user_name as userName 
+		FROM
+			dj_product p
+
+		LEFT JOIN dj_user u ON p.user_id = u.id
+		where 
+		p.is_del = #{isDel}
+		<if test="pName != null and pName != '' ">
+			and p.p_name like "%"#{pName}"%"
+		</if>
+	</select>
+	
+	<insert id="add">
+		INSERT INTO dj_product (
+			p_name,
+			p_type,
+			price,
+			STATUS,
+			user_id,
+			creat_time,
+			update_time,
+			is_del
+		)
+		VALUES
+			(#{pName},#{pType},#{price},#{status},#{userId},#{creatTime},#{updateTime},#{isDel})
+				
+	</insert>
+	
+	<update id="del">
+		update dj_product set is_del = #{isDel} where id in
+		<foreach collection="ids" close=")" open="(" separator="," item="id">
+		#{id}
+		</foreach>
+	</update>
+	
+	<select id="findProductById" resultType="Product">
+		SELECT
+			<include refid="PRODUCTCOLUMN" />
+		FROM
+			dj_product
+		WHERE
+			id = #{id}
+	</select>
+	
+	<update id="update">
+		update dj_product 
+		<set>
+			<if test="pName != null and pName != '' ">
+			p_name = #{pName},
+			</if>
+			<if test="pType != null ">
+			p_type = #{pType},
+			</if>
+			<if test="price != null  ">
+			price = #{price},
+			</if>
+			<if test="status != null  ">
+			status = #{status},
+			</if>
+			<if test="creatTime != null  ">
+				update_time = #{creatTime},
+			</if>
+			<if test="updateTime != null  ">
+				update_time = #{updateTime},
+			</if>
+
+		</set>
+		where id = #{id}
+	</update>
+
+	<select id="findByName" resultType="Product">
+		SELECT
+			<include refid="PRODUCTCOLUMN" />
+		FROM
+			dj_product
+		WHERE
+			p_name = #{pName}
+	</select>
+</mapper>

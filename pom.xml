@@ -44,6 +44,13 @@
             <version>3.3.2</version>
         </dependency>
 
+        <!-- 分页 -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>5.1.8</version>
+        </dependency>
+        
         <!-- 阿里云短信 -->
         <dependency>
             <groupId>com.aliyun</groupId>
