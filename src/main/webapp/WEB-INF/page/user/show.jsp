@@ -238,6 +238,10 @@
         });
     }
 
+    function toChong() {
+        window.location.href = "<%=request.getContextPath()%>/user/toChong" //iframe的url
+    }
+
 </script>
 <body>
 
@@ -271,6 +275,9 @@
 <shiro:hasPermission name="user:confer">
     <input type="button" value="授权" onclick = "confer()">
 </shiro:hasPermission>
+
+<input type="button" value="充值vip" onclick="toChong()">
+
     <table  class="layui-table">
         <colgroup>
             <col width="100">
