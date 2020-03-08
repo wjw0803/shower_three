@@ -4,6 +4,7 @@ package com.dj.ssm.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.Update;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.dj.ssm.common.ResultModel;
 import com.dj.ssm.common.SystemConstant;
 import com.dj.ssm.pojo.User;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 import java.util.Calendar;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -237,6 +239,26 @@ public class UserController {
         try {
             userService.findPhoneAndVerify(user);
             return new ResultModel<>().success(SystemConstant.SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultModel<>().error(SystemConstant.ERROR + e.getMessage());
+        }
+    }
+
+    /**
+     * 用户充值
+     */
+    @RequestMapping("accountMoney")
+    public ResultModel<Object> accountMoney(BigDecimal userMoney, Double accountMoney, HttpSession session) {
+        try {
+
+            BigDecimal bigDecimal = new BigDecimal(accountMoney);
+            User user = (User) session.getAttribute("user");
+            UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
+            updateWrapper.set("account_money", userMoney.add(bigDecimal));
+            updateWrapper.eq("id", user.getId());
+            userService.update(updateWrapper);
+            return new ResultModel<>().success(SystemConstant.ACCOUNTMONEY);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResultModel<>().error(SystemConstant.ERROR + e.getMessage());
