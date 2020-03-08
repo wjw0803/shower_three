@@ -74,7 +74,7 @@ public class SystemConstant {
 	/**
 	 * 展示报销单号dj
 	 */
-	public static final String NUM_DJ = "DJ";
+	public static final String NUM_DJ = "OVO";
 
 	/**
 	 * 查询pid 为12的收支项目

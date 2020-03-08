@@ -39,5 +39,10 @@ mybatis-plus:
 logging:
   level:
     com.dj.ssm.mapper: DEBUG
-
+    # 分页
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
 
