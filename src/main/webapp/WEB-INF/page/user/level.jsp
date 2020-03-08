@@ -10,6 +10,8 @@
 <html>
 <head>
     <title>Titl</title>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/static/layui-v2.5.5/layui/layui.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/static/layui-v2.5.5/layui/css/layui.css"  media="all">
     <script type="text/javascript" src="<%=request.getContextPath()%>/static/js/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/static/layer/layer.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/static/md5/md5-min.js"></script>
@@ -213,21 +215,45 @@
     </style>
 </head>
 <body>
-<form id="fm">
-    应聘姓名<input type="text" name="userName" id="userName" /><br>
-    昵称<input type="text" name="nickname" id="nickname" /><br><br>
-    密码<input type="password" name="password" id="pwd"/><br>
+<form id="fm" class="layui-form">
     <input type="hidden" name="salt" value="${salt}" id="salt"/>
-    确认密码<input type="password" name="userPwd1" /><br><br>
-    手机<input type="text" name="phone" id="userPhone" /><br>
-    邮箱<input type="text" name="email" id="email"/><br><br>
-    应聘职位
-    <input type="radio" name="roleId" value="3" >维修工
-    <input type="radio" name="roleId" value="7">技师
-    <div id="roleId" class="error" ></div><br>
-    性别<br>
-        <input type="radio" name="sex" value="1" >男
-        <input type="radio" name="sex" value="2">女
+    <label class="layui-form-label">应聘姓名</label>
+    <div class="layui-input-block">
+        <input type="text" name="userName" lay-verify="title" autocomplete="off" placeholder="请输入您的姓名" class="layui-input" id="userName">
+    </div><br>
+    <label class="layui-form-label">昵称</label>
+    <div class="layui-input-block">
+        <input type="text" name="nickname" lay-verify="title" autocomplete="off" placeholder="昵称" class="layui-input" id="nickname">
+    </div><br>
+    <label class="layui-form-label">密码</label>
+    <div class="layui-input-block">
+        <input type="text" name="password" lay-verify="title" autocomplete="off" placeholder="请输入您的密码" class="layui-input" id="pwd">
+    </div><br>
+    <label class="layui-form-label">确认密码</label>
+    <div class="layui-input-block">
+        <input type="text" name="password" lay-verify="title" autocomplete="off" placeholder="确认密码" class="layui-input" id="userPwd1">
+    </div><br>
+    <label class="layui-form-label">手机号</label>
+    <div class="layui-input-block">
+        <input type="text" name="phone" lay-verify="title" autocomplete="off" placeholder="填写手机号" class="layui-input" id="userPhone">
+    </div><br>
+    <label class="layui-form-label">邮箱</label>
+    <div class="layui-input-block">
+        <input type="text" name="email" lay-verify="title" autocomplete="off" placeholder="邮箱" class="layui-input" id="email">
+    </div><br>
+
+        <label class="layui-form-label">应聘职位</label>
+        <div class="layui-input-block">
+            <input type="radio" name="roleId" value="3" title="维修工" >
+            <input type="radio" name="roleId" value="7" title="技师">
+        </div>
+         <div id="roleId" class="error" ></div><br>
+
+        <label class="layui-form-label">性别</label>
+        <div class="layui-input-block">
+            <input type="radio" name="sex" value="1" title="男" >
+            <input type="radio" name="sex" value="2" title="女">
+        </div>
          <div id="sex" class="error" ></div>
         <input type="hidden" name="status" value="-1">
         <input type="hidden" name="isLeave" value="1">
@@ -235,5 +261,12 @@
         <input type="hidden" name="isDel" value="1"><br>
     <input type="submit" value="注册" />
 </form>
+<script>
+    layui.use('form', function(){
+        var form = layui.form;
+
+        //各种基于事件的操作，下面会有进一步介绍
+    });
+</script>
 </body>
 </html>
