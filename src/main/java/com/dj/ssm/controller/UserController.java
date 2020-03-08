@@ -2,6 +2,8 @@ package com.dj.ssm.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.Update;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.dj.ssm.common.ResultModel;
 import com.dj.ssm.common.SystemConstant;
 import com.dj.ssm.pojo.User;
@@ -14,10 +16,12 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -239,5 +243,61 @@ public class UserController {
         }
     }
 
+    /**
+     * 购买vip
+     */
+    //购买vip方法
+    @PutMapping("buyVip")
+    public ResultModel<Object> buyVip(User user/*,String tuCode*/, HttpSession session){
+        try {
+            //判断非空
+            if(StringUtils.isEmpty(user.getVipType()) /*|| StringUtils.isEmpty(tuCode) */){
+                return new ResultModel<>().error("vip类型或图形验证码不可为空");
+            }
+            User user1 = (User) session.getAttribute("user");
+            //根据当前用户查询他此时的账户金额
+            QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("id",user1.getId());
+            User user2 = userService.getOne(queryWrapper);
+            Calendar calendar = Calendar.getInstance();
+            //如果选则的日vip则vip失效时间加1天
+            if(user.getVipType() == 0){
+                calendar.add(Calendar.DATE,1);
+                if(user2.getAccountMoney() - 3 < 0){
+                    return new ResultModel<>().error("账户余额不足请及时充值");
+                }
+                user.setAccountMoney(user2.getAccountMoney() - 3);
+            }
+            //如果选则的是月vip则vip失效时间加1月
+            if(user.getVipType() == 1){
+                calendar.add(Calendar.MONTH,1);
+                if(user2.getAccountMoney() - 30 < 0){
+                    return new ResultModel<>().error("账户余额不足请及时充值");
+                }
+                user.setAccountMoney(user2.getAccountMoney() - 30);
+            }
+            //如果选则的是年vip则vip失效时间加1年
+            if(user.getVipType() == 2){
+                calendar.add(Calendar.YEAR,1);
+                if(user2.getAccountMoney() - 256 < 0){
+                    return new ResultModel<>().error("账户余额不足请及时充值");
+                }
+                user.setAccountMoney(user2.getAccountMoney() - 256);
+            }
+            user.setVipValidateTime(calendar.getTime());
+            user.setId(user2.getId());
+            userService.updateById(user);
+            //修改等级后对应的user_role(用户角色表)也要修改
+            UserRole userRole = new UserRole();
+            UpdateWrapper<UserRole> updateWrapper = new UpdateWrapper<>();
+            updateWrapper.set("role_id",8);
+            updateWrapper.eq("user_id",user2.getId());
+            userRoleService.update(updateWrapper);
+            return new ResultModel<>().success();
+        }catch (Exception e){
+            return new ResultModel<>().error(e.getMessage());
+        }
+
+    }
 
 }

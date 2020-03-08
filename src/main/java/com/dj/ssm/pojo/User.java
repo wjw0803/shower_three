@@ -112,7 +112,7 @@ public class User {
     /**
      * 账户余额
      */
-    private  Double account_money;
+    private  Double accountMoney;
 
     /**
      * 是否已领取新人福利 0:未领取1:已领取
@@ -122,8 +122,12 @@ public class User {
     /**
      * vip失效时间
      */
-    private Date validateCodeTime;
+    private Date vipValidateTime;
 
+    /**
+     * vip类型 0:日/vip,1:月/vip,2:年/vip
+     */
+    private Integer vipType;
 
 
 }
