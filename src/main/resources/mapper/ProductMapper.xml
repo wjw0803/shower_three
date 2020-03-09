@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dj.ssm.mapper.ProductMapper">
+
+	<sql id="PRODUCTCOLUMN">
+		id,
+		p_name,
+		message,
+		price,
+		status,
+		user_id,
+		creat_time,
+		update_time,
+		is_del
+	</sql>
+
+	<select id="findAll"  resultType="com.dj.ssm.pojo.Product">
+		SELECT
+			p.id,
+			p.p_name,
+			p.message,
+			p.price,
+			p.`status`,
+			p.user_id,
+			p.creat_time,
+			p.update_time,
+			u.user_name as userName 
+		FROM
+			djmall_auth_product p
+
+		LEFT JOIN djmall_auth_user u ON p.user_id = u.id
+		where 
+		p.is_del = #{isDel}
+		<if test="pName != null and pName != '' ">
+			and p.p_name like "%"#{pName}"%"
+		</if>
+	</select>
+	
+	<insert id="add">
+		INSERT INTO djmall_auth_product (
+			p_name,
+			message,
+			price,
+			STATUS,
+			user_id,
+			creat_time,
+			update_time,
+			is_del
+		)
+		VALUES
+			(#{pName},#{message},#{price},#{status},#{userId},now(),now(),#{isDel})
+				
+	</insert>
+	
+	<update id="del">
+		update djmall_auth_product set is_del = #{isDel} where id in
+		<foreach collection="ids" close=")" open="(" separator="," item="id">
+		#{id}
+		</foreach>
+	</update>
+	
+	<select id="findProductById" resultType="com.dj.ssm.pojo.Product">
+		SELECT
+			<include refid="PRODUCTCOLUMN" />
+		FROM
+			djmall_auth_product
+		WHERE
+			id = #{id}
+	</select>
+	
+	<update id="update">
+		update djmall_auth_product
+		<set>
+			<if test="pName != null and pName != '' ">
+			p_name = #{pName},
+			</if>
+			<if test="message != null and message != '' ">
+			message = #{message},
+			</if>
+			<if test="price != null  ">
+			price = #{price},
+			</if>
+			<if test="status != null  ">
+			status = #{status},
+			</if>
+			<if test="creatTime != null  ">
+				creat_time = #{creatTime},
+			</if>
+				update_time = now()
+		</set>
+		where id = #{id}
+	</update>
+
+	<select id="findByName" resultType="com.dj.ssm.pojo.Product">
+		SELECT
+			<include refid="PRODUCTCOLUMN" />
+		FROM
+			djmall_auth_product
+		WHERE
+			p_name = #{pName}
+	</select>
+</mapper>

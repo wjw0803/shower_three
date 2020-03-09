@@ -180,3 +180,4 @@ INSERT INTO `djmall_auth_user_role` VALUES ('45', '2', '1');
 INSERT INTO `djmall_auth_user_role` VALUES ('46', '3', '1');
 INSERT INTO `djmall_auth_user_role` VALUES ('47', '1', '1');
 INSERT INTO `djmall_auth_user_role` VALUES ('48', '1', '1');
+

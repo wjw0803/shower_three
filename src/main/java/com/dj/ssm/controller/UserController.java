@@ -123,6 +123,24 @@ public class UserController {
     }
 
     /**
+     * 展示
+     */
+    @RequestMapping("expertShow")
+    public ResultModel<Object> expertShow(User user, HttpSession session) {
+        try {
+            User user1 = (User) session.getAttribute(SystemConstant.SESSION_USER);
+            //用户id查出角色id
+            UserRole userRole = userRoleService.getOne(new QueryWrapper<UserRole>().eq("user_id", user1.getId()));
+            //用户,vip用户,维修工,技师只能看到自己的信息
+            List<User> userList = userService.findByRoleAllUser(user.setRoleId(7));
+            return new ResultModel<>().success(userList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultModel<>().error(SystemConstant.ERROR + e.getMessage());
+        }
+    }
+
+    /**
      * 验证是否有用户
      */
     @RequestMapping("findByName")
@@ -321,5 +339,24 @@ public class UserController {
         }
 
     }
+
+    //领取新人福利方法
+    @PutMapping("getUserFu")
+    public ResultModel<Object> getUserFu(HttpSession session){
+        try {
+            User user = (User) session.getAttribute("user");
+            if(user.getIsGetMoney() != null && user.getIsGetMoney() == 1){
+                return new ResultModel<>().error("您已领取过该福利");
+            }
+            user.setIsGetMoney(1);
+            user.setAccountMoney(Double.valueOf(5));
+            userService.updateById(user);
+            return new ResultModel<>().success();
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResultModel<>().error(e.getMessage());
+        }
+    }
+
 
 }

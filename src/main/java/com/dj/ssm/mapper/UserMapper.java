@@ -11,4 +11,7 @@ public interface UserMapper extends BaseMapper<User> {
 
     //展示
     List<User> allUser(User user) throws DataFormatException;
+
+    //技师展示
+    List<User> findByRoleAllUser(User user) throws DataFormatException;
 }

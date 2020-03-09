@@ -230,4 +230,9 @@ public class SystemConstant {
 	 * 您已被举报三次，已被强制辞退
 	 */
 	public static final String ISREPORT = "您被举报次数过多，已被强制辞退";
+
+	/**
+	 * 订单的展示 1:未删除 0 :删除
+	 */
+	public static final Integer ORDER_NOT_ISDEL = 1;
 }

@@ -63,7 +63,6 @@
     <script src="<%=request.getContextPath()%>/static/zTree_v3/js/jquery.ztree.all.min.js" ></script>
 </head>
 <body align="center"  bgcolor="bluered">
-
 <div id="demotree" class="ztree"></div>
 </body>
 <script>
@@ -102,5 +101,7 @@
             }
         )
     });
+
+
 </script>
 </html>
