@@ -66,8 +66,7 @@
         lastlogin_time,
         STATUS,
         r.role_name AS roleNameShow,
-        u.is_report,
-        u.prevoir
+        u.is_report
         FROM
         djmall_auth_user u
         LEFT JOIN
@@ -80,7 +79,6 @@
             u.is_del = 1
             AND ur.role_id = #{roleId}
             ANd u.is_report BETWEEN 0 and 3
-            and u.prevoir = 0
         </where>
     </select>
 </mapper>

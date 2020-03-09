@@ -84,7 +84,8 @@
             })
     }
 
-    function prevoir() {
+    //预约技师
+    function getPrevoir(){
         var length = $("input[name='id']:checked").length;
 
         if(length <= 0){
@@ -97,20 +98,23 @@
         }
 
         var id = $("input[name='id']:checked").val();
-        var index = layer.load(0, {shade:0.5});
-        $.post(
-            "<%=request.getContextPath()%>/resource/updatePrevoir",
-            {"id":id ,"prevoir":"1", "_method" : "put"},
+        var expertId;
+        $.post("<%=request.getContextPath()%>/user/expertShow",
+            {},
             function(data){
-                layer.close(index);
-                layer.msg(data.msg, function(){
-                    if (data.code != 200) {
-                        return;
-                    }
-                    window.location.href = "<%=request.getContextPath()%>/user/toShow";
-                });
+                expertId = data.data[0].id;
+                $.post("<%=request.getContextPath()%>/expertPrevoir/insert",
+                    {"userId":id,"ordreType":0,"expertId":expertId,"prix":100,"_method":"PUT"},
+                    function(data){
+                        if(data.code != 200){
+                            alert(data.msg)
+                            return;
+                        }
+                        alert(data.msg)
+                        window.location.href = "<%=request.getContextPath()%>/user/toShow";
+                    });
+            });
 
-            })
     }
 
 </script>
@@ -119,7 +123,7 @@
     <input type="button" value="举报" onclick = "isReport()">
 </shiro:hasPermission>
 <shiro:hasPermission name="resource:prevoir">
-    <input type="button" value="预约" onclick = "prevoir()">
+    <input type="button" value="预约" onclick = "getPrevoir()">
 </shiro:hasPermission>
 
     <table  class="layui-table">

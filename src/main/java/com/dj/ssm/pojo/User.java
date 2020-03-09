@@ -128,9 +128,4 @@ public class User {
      * vip类型 0:日/vip,1:月/vip,2:年/vip
      */
     private Integer vipType;
-
-    /**
-     * 预约 ：0为闲着  1为已预约
-     */
-    private Integer prevoir;
 }
