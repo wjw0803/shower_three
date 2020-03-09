@@ -225,4 +225,9 @@ public class SystemConstant {
 	 * 用户充值余额
 	 */
     public static final String ACCOUNTMONEY = "充值成功";
+
+	/**
+	 * 您已被举报三次，已被强制辞退
+	 */
+	public static final String ISREPORT = "您被举报次数过多，已被强制辞退";
 }

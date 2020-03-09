@@ -82,6 +82,12 @@ public class ShiroRealm extends AuthorizingRealm {
             if(!user1.getIsLeave().equals(SystemConstant.ONE)){
                 throw new UnauthenticatedException(SystemConstant.RESIGN);
             }
+
+            //技师被被举报三次不能登录
+            if(user1.getIsReport() >= SystemConstant.PAGING_THREE){
+                throw new UnauthenticatedException(SystemConstant.ISREPORT);
+            }
+
             //用户是否删除
             if (user1.getIsDel().equals(SystemConstant.IS_DEL_ZERO)) {
                 throw new UnauthenticatedException(SystemConstant.DELETE);
