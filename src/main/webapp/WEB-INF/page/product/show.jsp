@@ -251,6 +251,8 @@
     <input type="button" value="删除" onclick = 'del()'>&nbsp;
 </shiro:hasPermission>
 
+    余额:${user.accountMoney}
+
 <table  class="layui-table">
     <colgroup>
         <col width="100">

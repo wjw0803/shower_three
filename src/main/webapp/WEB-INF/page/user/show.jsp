@@ -347,8 +347,7 @@
 <shiro:hasPermission name="user:getFu">
 <input type="button" value="领取新人福利" onclick="getUserFu()"><br/>
 </shiro:hasPermission>
-充值的 user:getChong
-领取新人福利 user:getFu
+
     <table  class="layui-table">
         <colgroup>
             <col width="100">

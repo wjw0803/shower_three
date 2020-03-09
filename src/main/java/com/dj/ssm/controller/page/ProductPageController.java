@@ -1,7 +1,11 @@
 package com.dj.ssm.controller.page;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.dj.ssm.pojo.Product;
+import com.dj.ssm.pojo.User;
 import com.dj.ssm.service.ProductService;
+import com.dj.ssm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,8 +22,17 @@ public class ProductPageController {
 	@Autowired
 	private ProductService productService;
 
+	@Autowired
+	private UserService userService;
+
+
 	@RequestMapping("toShow")
-	public String toShow() {
+	public String toShow(HttpSession session, Model model) {
+		User user = (User) session.getAttribute("user");
+		QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+		queryWrapper.eq("id", user.getId());
+		User userOne = userService.getOne(queryWrapper);
+		model.addAttribute("user",userOne);
 		return "product/show";
 	}
 
