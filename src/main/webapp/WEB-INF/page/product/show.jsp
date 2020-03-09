@@ -62,15 +62,18 @@
         var index = layer.load(0, {shade: 0.3}); //0代表加载的风格，支持0-2
         $.post("<%=request.getContextPath()%>/product/purchase",
             {"id":id, "price":price},
-            function(data){
+        function(data){
+            if(data.code != 200){
                 layer.close(index);
-                if (data.code == "500") {
-                    layer.alert(data.msg);
-                    return;
-                }
-                layer.alert(data.msg);
-                window.location.href = "<%=request.getContextPath()%>/product/toShow";
-            })
+                layer.msg(data.msg, {icon: 0});
+                return;
+            }
+            layer.msg(data.msg, {icon: 6,time: 666 }, function(){
+                layer.close(index);
+                /* alert(data.msg); */
+                window.location.href = "<%=request.getContextPath()%>/product/toShow"
+            });
+        })
     }
 
     function page(pageNo,totalNum){
