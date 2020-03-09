@@ -222,6 +222,8 @@
     手机<input type="text" name="phone" id="userPhone" /><br>
     邮箱<input type="text" name="email" id="email"/><br><br>
     <input type="hidden" name="roleId" value="1">
+    <%--默认未领取新人福利--%>
+    <input type = "hidden" name="isGetMoney" value="0">
     <div id="roleId" class="error" ></div>
     性别<br>
         <input type="radio" name="sex" value="1" >男

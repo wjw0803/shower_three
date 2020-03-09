@@ -265,9 +265,28 @@
         });
     }
 
+    //去充值页面
     function toChong() {
         window.location.href = "<%=request.getContextPath()%>/user/toChong" //iframe的url
     }
+
+    //领取新人福利方法
+
+    //领取福利
+    function getUserFu(){
+        $.post("<%=request.getContextPath()%>/user/getUserFu",
+            {"_method":"PUT"},
+            function(data){
+                if(data.code != 200){
+                    alert(data.msg)
+                    return;
+                }
+                alert(data.msg)
+                window.location.href = "<%=request.getContextPath()%>/user/toShow";
+
+            });
+    }
+
 
 </script>
 <body>
@@ -323,6 +342,8 @@
 
 <button type="button" class="layui-btn layui-btn-warm layui-btn-radius" onclick="toChong()">充值vip</button>
 
+<input type="button" value="领取新人福利" onclick="getUserFu()"><br/>
+
     <table  class="layui-table">
         <colgroup>
             <col width="100">
@@ -355,6 +376,8 @@
 
         //各种基于事件的操作，下面会有进一步介绍
     });
+
+
 </script>
 </body>
 </html>

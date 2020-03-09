@@ -322,4 +322,23 @@ public class UserController {
 
     }
 
+    //领取新人福利方法
+    @PutMapping("getUserFu")
+    public ResultModel<Object> getUserFu(HttpSession session){
+        try {
+            User user = (User) session.getAttribute("user");
+            if(user.getIsGetMoney() != null && user.getIsGetMoney() == 1){
+                return new ResultModel<>().error("您已领取过该福利");
+            }
+            user.setIsGetMoney(1);
+            user.setAccountMoney(Double.valueOf(5));
+            userService.updateById(user);
+            return new ResultModel<>().success();
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResultModel<>().error(e.getMessage());
+        }
+    }
+
+
 }
