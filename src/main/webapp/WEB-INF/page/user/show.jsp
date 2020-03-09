@@ -340,10 +340,15 @@
     <button type="button" class="layui-btn layui-btn-normal layui-btn-radius" onclick="confer()">授权</button>
 </shiro:hasPermission>
 
+<shiro:hasPermission name="user:getChong">
 <button type="button" class="layui-btn layui-btn-warm layui-btn-radius" onclick="toChong()">充值vip</button>
+</shiro:hasPermission>
 
+<shiro:hasPermission name="user:getFu">
 <input type="button" value="领取新人福利" onclick="getUserFu()"><br/>
-
+</shiro:hasPermission>
+充值的 user:getChong
+领取新人福利 user:getFu
     <table  class="layui-table">
         <colgroup>
             <col width="100">
