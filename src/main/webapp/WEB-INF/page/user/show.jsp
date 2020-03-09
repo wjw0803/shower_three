@@ -287,6 +287,38 @@
             });
     }
 
+    //预约技师
+    function getPrevoir(){
+        var length = $("input[name='id']:checked").length;
+
+        if(length <= 0){
+            layer.msg("至少选择一项", {icon: 5});
+            return;
+        }
+        if(length > 1){
+            layer.msg("只能选择一个", {icon: 5});
+            return;
+        }
+
+        var id = $("input[name='id']:checked").val();
+        var expertId;
+        $.post("<%=request.getContextPath()%>/user/expertShow",
+            {},
+            function(data){
+                expertId = data.data[0].id;
+                $.post("<%=request.getContextPath()%>/expertPrevoir/insert",
+                    {"userId":id,"ordreType":0,"expertId":expertId,"prix":100,"_method":"PUT"},
+                    function(data){
+                        if(data.code != 200){
+                            alert(data.msg)
+                            return;
+                        }
+                        alert(data.msg)
+                        window.location.href = "<%=request.getContextPath()%>/user/toShow";
+                    });
+            });
+
+    }
 
 </script>
 <body>
@@ -346,6 +378,10 @@
 
 <shiro:hasPermission name="user:getFu">
 <input type="button" value="领取新人福利" onclick="getUserFu()"><br/>
+</shiro:hasPermission>
+
+<shiro:hasPermission name="expertPrevoir:insert">
+    <input type="button" value="预约技师" onclick="getPrevoir()"><br/>
 </shiro:hasPermission>
 
     <table  class="layui-table">
