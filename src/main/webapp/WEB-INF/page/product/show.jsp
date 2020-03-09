@@ -58,7 +58,7 @@
     }
 
     //购买
-    function purchase(id, price) {
+    function purchase(id, price ) {
         var index = layer.load(0, {shade: 0.3}); //0代表加载的风格，支持0-2
         $.post("<%=request.getContextPath()%>/product/purchase",
             {"id":id, "price":price},

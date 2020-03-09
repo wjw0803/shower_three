@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dj.ssm.mapper.OrderMapper">
+
+	<insert id="addOrder">
+		insert into djmall_auth_order (product_id,user_id,price,is_del,product_name) values (#{productId},#{userId},#{price},1,#{productName});
+	</insert>
+	<update id="updateIsDel">
+		update djmall_auth_order
+		<set>
+			<if test="productName != null and productName !=''">
+				product_name = #{productName},
+			</if>
+			is_del = 0 where id = #{id}
+		</set>
+	</update>
+
+
+	<select id="findAllByIsDel" resultType="com.dj.ssm.pojo.Order">
+			SELECT
+				djo.id,
+				djo.price,
+				djo.product_name,
+				dau.user_name as userName
+			FROM
+				djmall_auth_order djo
+			LEFT JOIN djmall_auth_user dau on dau.id = djo.user_id
+			<where>
+				<if test="productName != null and productName !=''">
+					djo.product_name like "%"#{productName}"%"
+				 </if>
+				 <if test="userId!=null">
+					 and djo.user_id = #{userId}
+				 </if>
+			</where>
+			and djo.is_del = 1
+	</select>
+</mapper>
