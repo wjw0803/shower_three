@@ -1,8 +1,12 @@
 package com.dj.ssm.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dj.ssm.common.ResultModel;
+import com.dj.ssm.common.SystemConstant;
+import com.dj.ssm.pojo.Order;
 import com.dj.ssm.pojo.Product;
 import com.dj.ssm.pojo.User;
+import com.dj.ssm.service.OrderService;
 import com.dj.ssm.service.ProductService;
 import com.dj.ssm.service.UserService;
 import com.github.pagehelper.PageHelper;
@@ -28,6 +32,10 @@ public class ProductController {
     private ProductService productService;
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private OrderService orderService;
+
     /**
      *  @Autowired
      *  private MessageService messageService;
@@ -157,18 +165,25 @@ public class ProductController {
     }
 
     @RequestMapping("purchase")
-    public ResultModel<Object> purchase(Product product, Integer id, Double price, @SessionAttribute("user") User user) {
+    public ResultModel<Object> purchase(Integer id, Double price, @SessionAttribute("user") User user, Order order) {
         try {
+            //商品的购买
+            if (user.getAccountMoney() < price){
+                return new ResultModel<>().error("您的余额不足请尽快充值");
+            }
             BigDecimal AccountMoney = new BigDecimal( user.getAccountMoney());
             BigDecimal price1 = new BigDecimal(price);
             System.out.println(Double.valueOf(String.valueOf(AccountMoney.subtract(price1))));
             user.setAccountMoney(Double.valueOf(String.valueOf(AccountMoney.subtract(price1))));
             userService.updateUser(user);
-
-/*
-            Message message = new Message();
-            message.setProductId(id).setCreateUserId(user.getId());
-            messageService.addMessage(message);*/
+            //购买完之后购买记录添加到订单表
+            Product product1 = productService.findProductById(id);
+            order.setProductId(id);
+            order.setPrice(price);
+            order.setProductName(product1.getpName());
+            order.setUserId(user.getId());
+            order.setIsDel(SystemConstant.ORDER_NOT_ISDEL);
+            orderService.addOrder(order);
             return new ResultModel<Object>().success("购买成功");
         } catch (Exception e) {
             e.printStackTrace();

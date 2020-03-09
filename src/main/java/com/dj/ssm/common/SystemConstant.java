@@ -225,4 +225,9 @@ public class SystemConstant {
 	 * 用户充值余额
 	 */
     public static final String ACCOUNTMONEY = "充值成功";
+
+	/**
+	 * 订单的展示 1:未删除 0 :删除
+	 */
+	public static final Integer ORDER_NOT_ISDEL = 1;
 }

@@ -1,12 +1,13 @@
 package com.dj.ssm.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dj.ssm.pojo.Product;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DataAccessException;
 
 import java.util.List;
 
-public interface ProductMapper {
+public interface ProductMapper  {
 	
 
 	//չʾ
@@ -41,5 +42,7 @@ public interface ProductMapper {
 	 * @author liuhe
 	 */
 	Product findByName(String pName) throws DataAccessException;
+
+
 	
 }
