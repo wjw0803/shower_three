@@ -38,7 +38,9 @@
                         html += "<td>"+list.expertId+"</td>";
                         html += "<td>"+list.userId+"</td>";
                         html += "<td>"+list.prevoirDate+"</td>";
-                        html += "<td>"+list.accepterDate+"</td>";
+                        html += "<td>";
+                        html +=list.accepterDate == null ? "没有接单":list.accepterDate;
+                        html += "</td>";
                         html += "<td>";
                         html += list.ordreType == 0 ? "预约":list.ordreType == 1 ? "已接单":"完成";
                         html += "</td>";
