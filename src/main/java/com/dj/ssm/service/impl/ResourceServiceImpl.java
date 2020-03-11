@@ -52,7 +52,7 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
     @Override
     public List<Resource> findAllResource() throws Exception {
         QueryWrapper<Resource> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("is_del", SystemConstant.IS_DEL_ONE);
+        queryWrapper.eq("is_del", SystemConstant.IS_DEL_YES_ONE);
         List<Resource> resourceList = this.list(queryWrapper);
         return resourceList;
     }
@@ -63,18 +63,18 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
         getIds(id, list);
         //资源删除
         UpdateWrapper<Resource> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.set("is_del", SystemConstant.IS_DEL_ZERO);
+        updateWrapper.set("is_del", SystemConstant.IS_DEL_DEL_ZERO);
         updateWrapper.in("id", list);
         this.update(updateWrapper);
         //角色资源表删除
         UpdateWrapper<RoleResource> updateWrapper1 = new UpdateWrapper<>();
-        updateWrapper1.set("is_del", SystemConstant.IS_DEL_ZERO);
+        updateWrapper1.set("is_del", SystemConstant.IS_DEL_DEL_ZERO);
         updateWrapper1.in("resource_id", list);
         roleResourceService.update(updateWrapper1);
     }
     public void getIds(Integer id, List<Integer> list) throws Exception {
         QueryWrapper<Resource> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("is_del", SystemConstant.IS_DEL_ONE)
+        queryWrapper.eq("is_del", SystemConstant.IS_DEL_YES_ONE)
                 .eq("p_id", id);
         List<Resource> resourceList = this.list(queryWrapper);
         list.add(id);

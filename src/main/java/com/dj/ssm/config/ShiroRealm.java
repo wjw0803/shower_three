@@ -75,11 +75,11 @@ public class ShiroRealm extends AuthorizingRealm {
                 throw new AccountException(SystemConstant.INPUT_ERROR);
             }
             //用户是否激活
-            if (!user1.getStatus().equals(SystemConstant.ONE)) {
+            if (!user1.getStatus().equals(SystemConstant.COMMONALITY_ONE)) {
                 throw new UnauthenticatedException(SystemConstant.ACTIVATE);
             }
             //技师被辞职不能登录
-            if(!user1.getIsLeave().equals(SystemConstant.ONE)){
+            if(!user1.getIsLeave().equals(SystemConstant.COMMONALITY_ONE)){
                 throw new UnauthenticatedException(SystemConstant.RESIGN);
             }
 
@@ -89,7 +89,7 @@ public class ShiroRealm extends AuthorizingRealm {
             }
 
             //用户是否删除
-            if (user1.getIsDel().equals(SystemConstant.IS_DEL_ZERO)) {
+            if (user1.getIsDel().equals(SystemConstant.IS_DEL_DEL_ZERO)) {
                 throw new UnauthenticatedException(SystemConstant.DELETE);
             }
             //增加登录时间

@@ -48,7 +48,7 @@ public class ResourcePageController {
         QueryWrapper<Resource> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("id", pId);
         Resource resource = resourceService.getOne(queryWrapper);
-        String pName = pId.equals(SystemConstant.ZERO) ? SystemConstant.SYMBOL:resource.getResourceName();
+        String pName = pId.equals(SystemConstant.COMMONALITY_ZERO) ? SystemConstant.SYMBOL:resource.getResourceName();
         model.addAttribute("pName", pName);
         model.addAttribute("pId", pId);
         return "resource/add";

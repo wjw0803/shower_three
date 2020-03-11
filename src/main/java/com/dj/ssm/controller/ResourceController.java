@@ -42,7 +42,7 @@ public class ResourceController {
             //菜单权限
             List<Resource> menuList = new ArrayList<>();
             for (Resource resource : resourceList) {
-                if (resource.getResourceType().equals(SystemConstant.ONE)){
+                if (resource.getResourceType().equals(SystemConstant.COMMONALITY_ONE)){
                     menuList.add(resource);
                 }
             }

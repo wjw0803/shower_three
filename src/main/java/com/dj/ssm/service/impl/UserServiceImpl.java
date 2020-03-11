@@ -89,7 +89,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public void delUser(User user) throws Exception {
         this.updateById(user);
         UpdateWrapper<UserRole> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.set("is_del", SystemConstant.IS_DEL_ZERO);
+        updateWrapper.set("is_del", SystemConstant.IS_DEL_DEL_ZERO);
         updateWrapper.eq("user_id", user.getId());
         userRoleService.update(updateWrapper);
     }
@@ -97,11 +97,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public void delUsers(Integer[] ids) throws Exception {
         UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.set("is_del", SystemConstant.IS_DEL_ZERO);
+        updateWrapper.set("is_del", SystemConstant.IS_DEL_DEL_ZERO);
         updateWrapper.in("id", ids);
         this.update(updateWrapper);
         UpdateWrapper<UserRole> updateWrapper1 = new UpdateWrapper<>();
-        updateWrapper1.set("is_del", SystemConstant.IS_DEL_ZERO);
+        updateWrapper1.set("is_del", SystemConstant.IS_DEL_DEL_ZERO);
         updateWrapper1.in("user_id", ids);
         userRoleService.update(updateWrapper1);
     }

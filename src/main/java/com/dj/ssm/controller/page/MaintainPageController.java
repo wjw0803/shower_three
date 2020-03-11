@@ -41,7 +41,7 @@ public class MaintainPageController {
     @RequestMapping("toAdd")
     public String toAdd(Model model){
         QueryWrapper<BasicData> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("is_del", SystemConstant.IS_DEL_ONE);
+        queryWrapper.eq("is_del", SystemConstant.IS_DEL_YES_ONE);
         queryWrapper.eq("p_id", SystemConstant.STATE_PROCESS_STATE);
         List<BasicData> basicDataList = basicDataService.list(queryWrapper);
         model.addAttribute("basicDataList", basicDataList);

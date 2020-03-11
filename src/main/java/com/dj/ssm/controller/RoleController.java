@@ -112,12 +112,12 @@ public class RoleController {
         try {
             //获取全部的资源表的信息
             QueryWrapper<Resource> queryWrapper1 = new QueryWrapper<>();
-            queryWrapper1.eq("is_Del",SystemConstant.IS_DEL_ONE);
+            queryWrapper1.eq("is_Del",SystemConstant.IS_DEL_YES_ONE);
             List<Resource> resourceList = resourceService.list(queryWrapper1);
             //获取已关联角色的资源的信息
             QueryWrapper<RoleResource> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("role_id", roleId);
-            queryWrapper.eq("is_Del", SystemConstant.IS_DEL_ONE);
+            queryWrapper.eq("is_Del", SystemConstant.IS_DEL_YES_ONE);
             List<RoleResource> roleResource = roleResourceService.list(queryWrapper);
             //new list集合存放信息
             List<Resource> list = new ArrayList<>();

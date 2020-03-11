@@ -5,7 +5,7 @@ public class SystemConstant {
 	/**
 	 * 验证码时间20秒
 	 */
-	public static final Integer TIME_300000 = 300000;
+	public static final Integer VERIFICATION_TIME_300000 = 300000;
 	
 	/**
 	 * uuid下标0
@@ -15,12 +15,12 @@ public class SystemConstant {
 	/**
 	 * 0
 	 */
-	public static final Integer ZERO = 0;
+	public static final Integer COMMONALITY_ZERO = 0;
 
 	/**
 	 * 1
 	 */
-	public static final Integer ONE = 1;
+	public static final Integer COMMONALITY_ONE = 1;
 
 	/**
 	 * 4
@@ -49,12 +49,12 @@ public class SystemConstant {
 	/**
 	 * 删除状态 1未删除
 	 */
-	public static final Integer IS_DEL_ONE = 1;
+	public static final Integer IS_DEL_YES_ONE = 1;
 
 	/**
 	 * 删除状态 0已删除
 	 */
-	public static final Integer IS_DEL_ZERO= 0;
+	public static final Integer IS_DEL_DEL_ZERO= 0;
 
 	/**
 	 * 职位2普通员工
@@ -76,15 +76,7 @@ public class SystemConstant {
 	 */
 	public static final String NUM_DJ = "OVO";
 
-	/**
-	 * 查询pid 为12的收支项目
-	 */
-	public static final Integer PARENTID_PROJECT = 12;
 
-	/**
-	 * 查询pid 为24的支付方式
-	 */
-	public static final Integer PARENTID_EXPEND = 24;
 
 	/**
 	 * 处理状态pid为5
@@ -235,4 +227,23 @@ public class SystemConstant {
 	 * 订单的展示 1:未删除 0 :删除
 	 */
 	public static final Integer ORDER_NOT_ISDEL = 1;
+
+	/**
+	 * 1普通用户
+	 */
+	public static final Integer ROLE_DOMESTIC_CONSUMER_1 = 1;
+/**
+	 * 8vip用户
+	 */
+	public static final Integer ROLE_VIP_8 = 8;
+	/**
+	 * 7技师
+	 */
+	public static final Integer ROLE_TECHNICIAN_7 = 7;
+/**
+	 * 3维修工
+	 */
+	public static final Integer ROLE_MAINTAINER_3 = 3;
+
+
 }

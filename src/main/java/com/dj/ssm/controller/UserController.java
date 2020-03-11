@@ -111,7 +111,8 @@ public class UserController {
             //用户id查出角色id
             UserRole userRole = userRoleService.getOne(new QueryWrapper<UserRole>().eq("user_id", user1.getId()));
             //用户,vip用户,维修工,技师只能看到自己的信息
-            if (userRole.getRoleId().equals(1) || userRole.getRoleId().equals(8) || userRole.getRoleId().equals(7) || userRole.getRoleId().equals(3)){
+            if (userRole.getRoleId().equals(SystemConstant.ROLE_DOMESTIC_CONSUMER_1) || userRole.getRoleId().equals(SystemConstant.ROLE_VIP_8)
+                    || userRole.getRoleId().equals(SystemConstant.ROLE_TECHNICIAN_7) || userRole.getRoleId().equals(SystemConstant.ROLE_MAINTAINER_3)){
                 user.setId(user1.getId());
             }
             List<User> userList = userService.findAllUser(user);

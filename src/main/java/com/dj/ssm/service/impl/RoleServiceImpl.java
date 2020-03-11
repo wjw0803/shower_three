@@ -34,7 +34,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     @Override
     public List<Role> findAllRole(String roleName) throws Exception {
         QueryWrapper<Role> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("is_del", SystemConstant.IS_DEL_ONE);
+        queryWrapper.eq("is_del", SystemConstant.IS_DEL_YES_ONE);
         //模糊查
         if(StringUtils.hasText(roleName)){
             queryWrapper.like("role_name", roleName);
@@ -67,12 +67,12 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         this.updateById(role);
         //删除用户角色表
         UpdateWrapper<UserRole> updateWrapper2 = new UpdateWrapper<>();
-        updateWrapper2.set("is_del", SystemConstant.IS_DEL_ZERO);
+        updateWrapper2.set("is_del", SystemConstant.IS_DEL_DEL_ZERO);
         updateWrapper2.eq("role_id", role.getId());
         userRoleService.update(updateWrapper2);
         //角色资源表删除
         UpdateWrapper<RoleResource> updateWrapper1 = new UpdateWrapper<>();
-        updateWrapper1.set("is_del", SystemConstant.IS_DEL_ZERO);
+        updateWrapper1.set("is_del", SystemConstant.IS_DEL_DEL_ZERO);
         updateWrapper1.eq("role_id", role.getId());
         roleResourceService.update(updateWrapper1);
     }
@@ -90,7 +90,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
             RoleResource roleResource = new RoleResource();
             roleResource.setRoleId(roleId);
             roleResource.setResourceId(resourceId);
-            roleResource.setIsDel(SystemConstant.IS_DEL_ONE);
+            roleResource.setIsDel(SystemConstant.IS_DEL_YES_ONE);
             list.add(roleResource);
         }
         roleResourceService.saveBatch(list);

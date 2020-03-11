@@ -72,7 +72,7 @@ public class RolePageController {
         List<Resource> resourceList = resourceService.list();
         QueryWrapper<RoleResource> queryWrapper = new QueryWrapper();
         queryWrapper.eq("role_id", roleId);
-        queryWrapper.eq("is_del", SystemConstant.IS_DEL_ONE);
+        queryWrapper.eq("is_del", SystemConstant.IS_DEL_YES_ONE);
         List<RoleResource> roleResourceList = roleResourceService.list(queryWrapper);
         model.addAttribute("roleId", roleId);
         model.addAttribute("resourceList", resourceList);
